@@ -18,11 +18,11 @@ namespace ChallengeIntuit.Modelos
         public string Email { get; set; }
         public int Id { get; set; }
 
-        public Clientes(string nombre, string apellidos, string fechaNacimiento, string cuit, string domicilio, string telefonoCelular, string email, int id)
+        public Clientes(string nombre, string apellidos, DateTime fechaNacimiento, string cuit, string domicilio, string telefonoCelular, string email, int id)
         {
             Nombre = nombre;
             Apellidos = apellidos;
-            FechaNacimiento = DateTime.Parse(fechaNacimiento);
+            FechaNacimiento = fechaNacimiento;
             Cuit = cuit;
             Domicilio = domicilio;
             TelefonoCelular = telefonoCelular;

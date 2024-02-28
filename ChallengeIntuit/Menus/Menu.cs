@@ -1,4 +1,5 @@
-﻿using ChallengeIntuit.Modelos;
+﻿using ChallengeIntuit.Banco;
+using ChallengeIntuit.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace ChallengeIntuit.Menus
             Console.WriteLine(titulo);
             Console.WriteLine(asteriscos + "\n");
         }
-        public virtual void Executar(Dictionary<string, Clientes> clientesRegistrados)
+        public virtual void Executar(DAL<Clientes> clienteDAL)
         {
             Console.Clear();
         }

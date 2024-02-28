@@ -1,4 +1,5 @@
-﻿using ChallengeIntuit.Modelos;
+﻿using ChallengeIntuit.Banco;
+using ChallengeIntuit.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,16 @@ namespace ChallengeIntuit.Menus
 {
     internal class MenuBuscarPorNombre : Menu
     {
-        public override void Executar(Dictionary<string, Clientes> clientesRegistrados)
+        public override void Executar(DAL<Clientes> clienteDAL)
         {
-            base.Executar(clientesRegistrados);
+            base.Executar(clienteDAL);
             MostrarTituloOpcion("Mostrar detalles del cliente");
             Console.Write("Ingrese el nombre del cliente: ");
             string nombreCliente = Console.ReadLine();
-            if(clientesRegistrados.ContainsKey(nombreCliente))
+            var clienteRecuperado = clienteDAL.RecuperarPor(a => a.Nombre.Equals(nombreCliente));
+            if(clienteRecuperado is not null )
             {
-                Clientes clientes = clientesRegistrados[nombreCliente];
-                Console.Write(clientes);
+                Console.Write(clienteRecuperado);
                 Console.WriteLine("\nIngrese una tecla para volver al menu principal");
                 Console.ReadKey();
                 Console.Clear();

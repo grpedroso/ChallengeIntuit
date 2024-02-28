@@ -1,6 +1,9 @@
-﻿using ChallengeIntuit.Menus;
+﻿using ChallengeIntuit.Banco;
+using ChallengeIntuit.Menus;
 using ChallengeIntuit.Modelos;
 
+var context = new ChallengeIntuitContext();
+var clienteDAL = new DAL<Clientes>(context);
 
 
 Dictionary<string, Clientes> clientesRegistrados = new();
@@ -23,7 +26,7 @@ void ExibirImagen()
         ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
     ");
-    Console.WriteLine("Bienvenido al sistema de registro de clientes");
+    Console.WriteLine("Bienvenido al sistema de registro de clientes!");
 }
 
 void ExibirOpcionesDelMenu()
@@ -41,7 +44,7 @@ void ExibirOpcionesDelMenu()
     if (opciones.ContainsKey(opcaoSeleccionada))
     {
         Menu menuASerExibido = opciones[opcaoSeleccionada];
-        menuASerExibido.Executar(clientesRegistrados);
+        menuASerExibido.Executar(clienteDAL);
         if (opcaoSeleccionada > 0) ExibirOpcionesDelMenu();
     }
     else
