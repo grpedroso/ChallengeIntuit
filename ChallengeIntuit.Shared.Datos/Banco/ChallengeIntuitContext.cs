@@ -11,7 +11,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ChallengeIntuit.Banco
 {
-    internal class ChallengeIntuitContext : DbContext
+    public class ChallengeIntuitContext : DbContext
     {
         public DbSet<Clientes> Clientes { get; set; }
 

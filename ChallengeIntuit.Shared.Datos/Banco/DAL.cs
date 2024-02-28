@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ChallengeIntuit.Banco
 {
-    internal class DAL<T> where T : class
+    public class DAL<T> where T : class
     {
-        protected readonly ChallengeIntuitContext context;
+        private readonly ChallengeIntuitContext context;
         public DAL(ChallengeIntuitContext context)
         {
             this.context = context;
@@ -36,6 +36,10 @@ namespace ChallengeIntuit.Banco
         public T? RecuperarPor(Func<T, bool> condicion)
         {
             return context.Set<T>().FirstOrDefault(condicion);
+        }
+        public IEnumerable<T> ListarPor(Func<T, bool> condicao)
+        {
+            return context.Set<T>().Where(condicao);
         }
     }
 }
