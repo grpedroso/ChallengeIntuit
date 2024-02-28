@@ -33,7 +33,7 @@ namespace ChallengeIntuit.Modelos
             return $@"Id: {Id}
                       Nombre: {Nombre}
                       Apellidos: {Apellidos}
-                      Fecha de nacimiento: {FechaNacimiento.Date}
+                      Fecha de nacimiento: {FechaNacimiento.Date.ToShortDateString()}
                       CUIT: {Cuit} 
                       Domicilio: {Domicilio}  
                       Telefono: {TelefonoCelular}  

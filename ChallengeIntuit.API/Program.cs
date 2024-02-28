@@ -4,20 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ChallengeIntuitContext>();
+builder.Services.AddTransient<DAL<Clientes>>();
+
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => 
 options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 
-app.MapGet("/Clientes", () =>
+app.MapGet("/Clientes", ([FromServices]DAL<Clientes> dal) =>
 {
-    var dal = new DAL<Clientes>(new ChallengeIntuitContext());
     return Results.Ok(dal.Listar());
 });
 
-app.MapGet("/Clientes/{id}", (int id) =>
+app.MapGet("/Clientes/{id}", ([FromServices]DAL < Clientes > dal, int id) =>
 {
-    var dal = new DAL<Clientes>(new ChallengeIntuitContext());
     var cliente = dal.ListarPor(a => a.Id.Equals(id));
     if(cliente == null)
     {
@@ -26,11 +28,21 @@ app.MapGet("/Clientes/{id}", (int id) =>
     return Results.Ok(cliente);
 });
 
-app.MapPost("/Clientes", ([FromBody]Clientes clientes) =>
+app.MapPost("/Clientes", ([FromServices]DAL < Clientes > dal, [FromBody]Clientes clientes) =>
 {
-    var dal = new DAL<Clientes>(new ChallengeIntuitContext());
     dal.Adicionar(clientes);
     return Results.Ok();
+});
+
+app.MapDelete("/Clientes/{id}", ([FromServices] DAL<Clientes> dal, int id) =>
+{
+    var artista = dal.RecuperarPor(a =>a.Id.Equals(id));
+    if(artista == null)
+    {
+        Results.NotFound();
+    }
+    dal.Borrar(artista);
+    return Results.NoContent();
 });
 
 app.Run();
