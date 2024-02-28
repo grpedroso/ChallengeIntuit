@@ -1,5 +1,6 @@
 using ChallengeIntuit.Banco;
 using ChallengeIntuit.Modelos;
+using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,13 @@ app.MapGet("/Clientes/{id}", (int id) =>
         return Results.NotFound();
     }
     return Results.Ok(cliente);
+});
+
+app.MapPost("/Clientes", ([FromBody]Clientes clientes) =>
+{
+    var dal = new DAL<Clientes>(new ChallengeIntuitContext());
+    dal.Adicionar(clientes);
+    return Results.Ok();
 });
 
 app.Run();
