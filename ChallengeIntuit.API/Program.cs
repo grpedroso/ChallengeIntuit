@@ -27,6 +27,15 @@ app.MapGet("/Clientes/{id}", ([FromServices]DAL < Clientes > dal, int id) =>
     }
     return Results.Ok(cliente);
 });
+app.MapGet("Clientes/BuscarPorNombre/{nombre}", ([FromServices] DAL<Clientes> dal, string nombre) =>
+{
+    var cliente = dal.ListarPor(a => a.Nombre.Contains(nombre));
+    if(cliente == null)
+    {
+        Results.NotFound();
+    }
+    return Results.Ok(cliente);
+});
 
 app.MapPost("/Clientes", ([FromServices]DAL < Clientes > dal, [FromBody]Clientes clientes) =>
 {
@@ -43,6 +52,24 @@ app.MapDelete("/Clientes/{id}", ([FromServices] DAL<Clientes> dal, int id) =>
     }
     dal.Borrar(artista);
     return Results.NoContent();
+});
+app.MapPut("/Clientes", ([FromServices] DAL<Clientes> dal, [FromBody] Clientes clientes) =>
+{
+    var clienteUpdate = dal.RecuperarPor(a => a.Id == clientes.Id);
+    if(clienteUpdate == null)
+    {
+        Results.NotFound();
+    }
+    clienteUpdate.Nombre = clientes.Nombre;
+    clienteUpdate.Apellidos = clientes.Apellidos;
+    clienteUpdate.FechaNacimiento = clientes.FechaNacimiento;
+    clienteUpdate.Cuit = clientes.Cuit;
+    clienteUpdate.Domicilio = clientes.Domicilio;
+    clienteUpdate.TelefonoCelular = clientes.TelefonoCelular;
+    clienteUpdate.Email = clientes.Email;
+    
+    dal.Actualizar(clienteUpdate);
+
 });
 
 app.Run();
