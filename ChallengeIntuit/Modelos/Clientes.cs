@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ChallengeIntuit.Modelos
 {
-    internal class Clientes
+    public class Clientes
     {
         public string Nombre {  get; set; }
         public string Apellidos { get; set; }
@@ -18,7 +18,7 @@ namespace ChallengeIntuit.Modelos
         public string Email { get; set; }
         public int Id { get; set; }
 
-        public Clientes(string nombre, string apellidos, DateTime fechaNacimiento, string cuit, string domicilio, string telefonoCelular, string email, int id)
+        public Clientes(string nombre, string apellidos, DateTime fechaNacimiento, string cuit, string domicilio, string telefonoCelular, string email)
         {
             Nombre = nombre;
             Apellidos = apellidos;
@@ -27,7 +27,6 @@ namespace ChallengeIntuit.Modelos
             Domicilio = domicilio;
             TelefonoCelular = telefonoCelular;
             Email = email;
-            Id = id;
         }
         public override string ToString()
         {

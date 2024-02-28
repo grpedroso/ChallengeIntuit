@@ -28,10 +28,8 @@ namespace ChallengeIntuit.Menus
             string telefonoC = Console.ReadLine();
             Console.Write("Ingrese el email del cliente: ");
             string emailC = Console.ReadLine();
-            Console.Write("Ingrese el ID del cliente: ");
-            int idC = int.Parse(Console.ReadLine());
 
-            Clientes cliente = new Clientes(nombreC, apellidoC, fechaC, cuitC, domicilioC, telefonoC, emailC, idC);
+            Clientes cliente = new Clientes(nombreC, apellidoC, fechaC, cuitC, domicilioC, telefonoC, emailC);
             clienteDAL.Adicionar(cliente);
             Console.WriteLine($"El cliente {nombreC} fue registrado correctamente");
             Thread.Sleep(4000);
