@@ -110,7 +110,7 @@
 
     private async Task Borrar()
     {       
-        await clientesAPI.DeleteClientesAsync(Cliente.Id);
+        await clientesAPI.DeleteClientesAsync(Id);
         navigationManager.NavigateTo("/Clientes");
     }
 
