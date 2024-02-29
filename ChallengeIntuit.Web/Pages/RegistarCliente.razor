@@ -1,5 +1,89 @@
-﻿<h3>RegistarCliente</h3>
+﻿@page "/RegistrarCliente"
+@inject ClientesAPI clientesAPI
+@inject NavigationManager navigationManager
+<MudPaper Class="px-8 pt-2 pb-4 mx-12 my-8" Justify="Justify.Center">
 
+    <MudText Class="mt-8" Typo="Typo.h4">Registro Del Cliente</MudText>
+
+    <MudForm>
+
+        <MudTextField Class="mt-4" T="string" Placeholder="Nombre del cliente"
+                      Variant="Variant.Outlined"
+                      @bind-Value="nombre"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+        
+        <MudTextField Class="mt-4" T="string" Placeholder="Apellidos"
+                      Variant="Variant.Outlined"
+                      @bind-Value="apellidos"
+                      Lines="4"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+
+        <MudTextField Class="mt-4" T="string" Placeholder="Fecha de nacimiento (AÑO-MES-DIA)"
+                      Variant="Variant.Outlined"
+                      @bind-Value="fechaDeNacimiento"
+                      Lines="4"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+        <MudTextField Class="mt-4" T="string" Placeholder="CUIT"
+                      Variant="Variant.Outlined"
+                      @bind-Value="cuit"
+                      Lines="4"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+        <MudTextField Class="mt-4" T="string" Placeholder="Domicilio"
+                      Variant="Variant.Outlined"
+                      @bind-Value="domicilio"
+                      Lines="4"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+        <MudTextField Class="mt-4" T="string" Placeholder="Telefono Celular"
+                      Variant="Variant.Outlined"
+                      @bind-Value="telefono"
+                      Lines="4"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+
+
+        <MudTextField Class="mt-4" T="string" Placeholder="Email"
+                      Variant="Variant.Outlined"
+                      @bind-Value="email"
+                      Lines="4"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+        <div class="d-flex align-center justify-space-between mt-4">
+            <MudButton Variant="Variant.Filled"
+                       @onclick="Registrar"
+                       Color="Color.Primary"
+                       Class="ml-auto">
+                Registrar
+            </MudButton>
+        </div>
+
+    </MudForm>
+</MudPaper>
 @code {
+    private string? nombre;
+    private string? apellidos;
+    private string? fechaDeNacimiento;
+    private string? cuit;
+    private string? domicilio;
+    private string? telefono;
+    private string? email;
+
+    private async Task Registrar()
+    {
+        var request = new Clientes(nombre!, apellidos!, DateTime.Parse(fechaDeNacimiento!), cuit!, domicilio!, telefono!, email!);
+        await clientesAPI.AddClientesAsync(request);
+        navigationManager.NavigateTo("/Clientes");
+    }
+
 
 }

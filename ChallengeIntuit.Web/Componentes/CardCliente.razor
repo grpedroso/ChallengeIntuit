@@ -1,0 +1,22 @@
+﻿<MudCard>
+    <MudCardMedia Image="images/cardClientes.png"></MudCardMedia>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">@Cliente!.Nombre</MudText>
+                <MudText Typo="Typo.h6">@Cliente!.Apellidos</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+        <MudCardContent>
+            <MudText Typo="Typo.body2"><b>Fecha de nacimiento: </b>@Cliente!.FechaNacimiento.Date.ToShortDateString()</MudText>
+            <MudText Typo="Typo.body2"><b>CUIT: </b>@Cliente!.Cuit</MudText>
+            <MudText Typo="Typo.body2"><b>Domicilio: </b>@Cliente!.Domicilio</MudText>
+            <MudText Typo="Typo.body2"><b>Teléfono Celular: </b>@Cliente!.TelefonoCelular</MudText>
+            <MudText Typo="Typo.body2"><b>Email: </b>@Cliente!.Email</MudText>
+        </MudCardContent>
+    
+</MudCard>
+
+@code{
+    [Parameter]
+    public Clientes? Cliente { get; set;}
+}

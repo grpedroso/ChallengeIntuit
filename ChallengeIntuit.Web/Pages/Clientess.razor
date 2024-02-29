@@ -1,13 +1,17 @@
 ﻿@page "/Clientes"
-@using ChallengeIntuit.Modelos;
+
 @inject ClientesAPI clientesAPI
 <h3>Clientes</h3>
 @if(clientes != null)
 {
-    foreach(var cliente in clientes)
-    {
-        <p>@cliente.Nombre</p>
-    }
+    <MudGrid>
+        @foreach(var cliente in clientes)
+        {
+            <MudItem xs="3">
+            <CardCliente Cliente="cliente"/>
+            </MudItem>
+        }
+    </MudGrid>
 }
 @code {
     private ICollection<Clientes>? clientes;

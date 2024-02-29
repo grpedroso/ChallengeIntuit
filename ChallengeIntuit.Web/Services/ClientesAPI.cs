@@ -16,5 +16,9 @@ namespace ChallengeIntuit.Web.Services
         {
             return await _httpClient.GetFromJsonAsync<ICollection<Clientes>>("Clientes");
         }
+        public async Task AddClientesAsync(Clientes clientes)
+        {
+            await _httpClient.PostAsJsonAsync("Clientes", clientes);
+        }
     }
 }

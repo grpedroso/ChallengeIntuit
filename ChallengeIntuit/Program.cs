@@ -2,7 +2,8 @@
 using ChallengeIntuit.Menus;
 using ChallengeIntuit.Modelos;
 
-var clienteDAL = new DAL<Clientes>();
+var context = new ChallengeIntuitContext();
+var clienteDAL = new DAL<Clientes>(context);
 
 
 Dictionary<string, Clientes> clientesRegistrados = new();
