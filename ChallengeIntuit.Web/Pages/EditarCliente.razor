@@ -60,10 +60,22 @@
 
         <div class="d-flex align-center justify-space-between mt-4">
             <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Class="ml-auto"
+                       @onclick="Editar">
+                Guardar cambios
+            </MudButton>
+            <MudButton Variant="Variant.Filled"
                        @onclick="Borrar"
                        Color="Color.Secondary"
-                       Class="ml-auto">
-                Borrar
+                       Class="ml-3">
+                Borrar cliente
+            </MudButton>
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Info"
+                       Class="ml-3"
+                       @onclick="Volver">
+                Volver
             </MudButton>
         </div>
 
@@ -106,7 +118,11 @@
     {
         var requestEdit = new Clientes(nombre!, apellidos!, DateTime.Parse(fechaDeNacimiento!), cuit!, domicilio!, telefono!, email!);
         await clientesAPI.UpdateClientesAsync(requestEdit);
-        navigationManager.NavigateTo("/Artistas");
+        navigationManager.NavigateTo("/Clientes");
+    }
+    private void Volver()
+    {
+        navigationManager.NavigateTo("/Clientes");
     }
 
 }
