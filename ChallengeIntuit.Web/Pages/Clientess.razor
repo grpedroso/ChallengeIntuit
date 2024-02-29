@@ -1,0 +1,18 @@
+﻿@page "/Clientes"
+@using ChallengeIntuit.Modelos;
+@inject ClientesAPI clientesAPI
+<h3>Clientes</h3>
+@if(clientes != null)
+{
+    foreach(var cliente in clientes)
+    {
+        <p>@cliente.Nombre</p>
+    }
+}
+@code {
+    private ICollection<Clientes>? clientes;
+    protected override async Task OnInitializedAsync()
+    {
+        clientes = await clientesAPI.GetClientesAsync();
+    }
+}

@@ -16,8 +16,17 @@ namespace ChallengeIntuit.Banco
         public DbSet<Clientes> Clientes { get; set; }
 
         private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog = ChallengeIntuit; Integrated Security = True; Encrypt=False;Trust Server Certificate=False;Application Intent = ReadWrite; Multi Subnet Failover=False";
+        
+        public ChallengeIntuitContext(DbContextOptions options) : base(options)
+        {
+
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if(optionsBuilder.IsConfigured)
+            {
+                return;
+            }
             optionsBuilder.UseSqlServer(connectionString).UseLazyLoadingProxies();
         }        
 
