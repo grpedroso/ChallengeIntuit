@@ -1,0 +1,29 @@
+﻿@page "/Clientes/BuscarPorNombre"
+@inject ClientesAPI clientesAPI
+
+<MudTextField @bind-Value="Nombre" Label="Nombre" />
+
+<MudButton Color="Color.Primary" Variant="Variant.Filled" @onclick="BuscarClientes">Buscar</MudButton>
+
+
+@if (cliente != null)
+{
+    <MudGrid>
+        @foreach (var cliente in cliente)
+        {
+            <MudItem xs="3">
+                <CardCliente Cliente="cliente" />
+            </MudItem>
+        }
+    </MudGrid>
+}
+
+@code {
+    public string Nombre { get; set; }
+
+    private ICollection<Clientes>? cliente;
+    protected async Task BuscarClientes()
+    {
+        cliente = await clientesAPI.GetClientePorNombreAsync(Nombre);
+    }
+}

@@ -20,5 +20,22 @@ namespace ChallengeIntuit.Web.Services
         {
             await _httpClient.PostAsJsonAsync("Clientes", clientes);
         }
+        public async Task<ICollection<Clientes>?> GetClientePorIdAsync(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<ICollection<Clientes>>($"Clientes/{id}");
+        }
+        public async Task<ICollection<Clientes>?> GetClientePorNombreAsync(string nombre)
+        {
+            return await _httpClient.GetFromJsonAsync<ICollection<Clientes>>($"Clientes/BuscarPorNombre/{nombre}");
+        }
+
+        public async Task DeleteClientesAsync(int id) 
+        {
+            await _httpClient.DeleteAsync($"Clientes/{id}");
+        }
+        public async Task UpdateClientesAsync(Clientes clientes)
+        {
+            await _httpClient.PutAsJsonAsync("Clientes", clientes);
+        }
     }
 }

@@ -1,5 +1,112 @@
-﻿<h3>EditarCliente</h3>
+﻿@page "/EditarCliente/{Id:int}"
+@inject ClientesAPI clientesAPI
+@inject NavigationManager navigationManager
+<MudPaper Class="px-8 pt-2 pb-4 mx-12 my-8" Justify="Justify.Center">
 
+    <MudText Class="mt-8" Typo="Typo.h4">Edición Del Cliente</MudText>
+
+    <MudForm>
+
+        <MudTextField Class="mt-4" T="string" Placeholder="Nombre del cliente"
+                      Variant="Variant.Outlined"
+                      @bind-Value="nombre"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+        <MudTextField Class="mt-4" T="string" Placeholder="Apellidos"
+                      Variant="Variant.Outlined"
+                      @bind-Value="apellidos"
+                      Lines="4"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+
+        <MudTextField Class="mt-4" T="string" Placeholder="Fecha de nacimiento (AÑO-MES-DIA)"
+                      Variant="Variant.Outlined"
+                      @bind-Value="fechaDeNacimiento"
+                      Lines="4"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+        <MudTextField Class="mt-4" T="string" Placeholder="CUIT"
+                      Variant="Variant.Outlined"
+                      @bind-Value="cuit"
+                      Lines="4"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+        <MudTextField Class="mt-4" T="string" Placeholder="Domicilio"
+                      Variant="Variant.Outlined"
+                      @bind-Value="domicilio"
+                      Lines="4"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+        <MudTextField Class="mt-4" T="string" Placeholder="Telefono Celular"
+                      Variant="Variant.Outlined"
+                      @bind-Value="telefono"
+                      Lines="4"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+
+
+        <MudTextField Class="mt-4" T="string" Placeholder="Email"
+                      Variant="Variant.Outlined"
+                      @bind-Value="email"
+                      Lines="4"
+                      Required="true"
+                      RequiredError="Campo obligatorio." />
+
+        <div class="d-flex align-center justify-space-between mt-4">
+            <MudButton Variant="Variant.Filled"
+                       @onclick="Borrar"
+                       Color="Color.Secondary"
+                       Class="ml-auto">
+                Borrar
+            </MudButton>
+        </div>
+
+    </MudForm>
+</MudPaper>
 @code {
+    private string? nombre;
+    private string? apellidos;
+    private string? fechaDeNacimiento;
+    private string? cuit;
+    private string? domicilio;
+    private string? telefono;
+    private string? email;
+    [Parameter]
+    public int Id { get; set; }
+    private ICollection<Clientes>? cliente;
+    public Clientes Cliente { get; set; }
+
+    protected async Task OnInitializedAsync()
+    {
+        cliente = await clientesAPI.GetClientePorIdAsync(Id);
+        nombre = Cliente.Nombre;
+        apellidos = Cliente.Apellidos;
+        fechaDeNacimiento = Cliente.FechaNacimiento.ToString();
+        cuit = Cliente.Cuit;
+        domicilio = Cliente.Domicilio;
+        telefono = Cliente.TelefonoCelular;
+        email = Cliente.Email;
+
+
+    }
+
+    private async Task Borrar()
+    {       
+        await clientesAPI.DeleteClientesAsync(Cliente.Id);
+        navigationManager.NavigateTo("/Clientes");
+    }
+
+    private async Task Editar()
+    {
+        var requestEdit = new Clientes(nombre!, apellidos!, DateTime.Parse(fechaDeNacimiento!), cuit!, domicilio!, telefono!, email!);
+        await clientesAPI.UpdateClientesAsync(requestEdit);
+        navigationManager.NavigateTo("/Artistas");
+    }
 
 }

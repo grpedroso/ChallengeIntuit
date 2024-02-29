@@ -13,6 +13,11 @@
             <MudText Typo="Typo.body2"><b>Teléfono Celular: </b>@Cliente!.TelefonoCelular</MudText>
             <MudText Typo="Typo.body2"><b>Email: </b>@Cliente!.Email</MudText>
         </MudCardContent>
+        <MudCardActions>
+            <MudButton Color="Color.Warning"
+                       Variant="Variant.Outlined"
+                       Href=@($"/EditarCliente/{Cliente!.Id}")>Detalles</MudButton>
+        </MudCardActions>
     
 </MudCard>
 
